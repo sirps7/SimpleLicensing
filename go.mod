@@ -1,4 +1,4 @@
-module github.com/sirps7/SimpleLicensing
+
 
 go 1.25
 
