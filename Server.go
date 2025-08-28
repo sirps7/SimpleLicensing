@@ -14,7 +14,6 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/sirps7/SimpleLicensing"
 
 	"github.com/gorilla/mux"
 	"github.com/pelletier/go-toml"
