@@ -1,4 +1,4 @@
-# Use an older Go version compatible with the repo
+# Use Go 1.16 Alpine image
 FROM golang:1.16-alpine
 
 # Install git
@@ -7,16 +7,21 @@ RUN apk add --no-cache git
 # Set working directory inside GOPATH
 WORKDIR /go/src/app
 
-# Copy source code into container
+# Copy source code
 COPY . .
 
-# Force GOPATH mode to build the old project
+# Disable Go modules (old repo)
 ENV GO111MODULE=off
 
-# Build the Go app
+# Fetch external dependencies
+RUN go get github.com/go-sql-driver/mysql \
+    github.com/gorilla/mux \
+    github.com/pelletier/go-toml
+
+# Build the server
 RUN go build -o server
 
-# Expose the port the app listens on
+# Expose the server port
 EXPOSE 8080
 
 # Start the server
