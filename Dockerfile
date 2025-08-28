@@ -1,28 +1,26 @@
-# Use Go 1.16 Alpine image
-FROM golang:1.16-alpine
+# Use Go 1.25 Alpine (latest stable)
+FROM golang:1.25-alpine
 
 # Install git
 RUN apk add --no-cache git
 
-# Set working directory inside GOPATH
-WORKDIR /go/src/app
+# Set workdir
+WORKDIR /app
 
-# Copy source code
+# Copy the source code
 COPY . .
 
-# Disable Go modules (old repo)
-ENV GO111MODULE=off
+# Enable Go modules (default in 1.25)
+ENV GO111MODULE=on
 
-# Fetch external dependencies
-RUN go get github.com/go-sql-driver/mysql \
-    github.com/gorilla/mux \
-    github.com/pelletier/go-toml
+# Fetch all dependencies
+RUN go mod tidy
 
 # Build the server
 RUN go build -o server
 
-# Expose the server port
+# Expose port
 EXPOSE 8080
 
-# Start the server
+# Run the server
 CMD ["./server"]
