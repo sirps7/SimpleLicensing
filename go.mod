@@ -1,4 +1,4 @@
-import "SimpleLicensing/Licensing"
+import "github.com/sirps7/SimpleLicensing/SimpleLicensing"
 
 go 1.25
 
