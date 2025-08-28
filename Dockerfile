@@ -1,19 +1,19 @@
-# Use Go 1.25 Alpine (latest stable)
+# Use Go 1.25 Alpine
 FROM golang:1.25-alpine
 
 # Install git
 RUN apk add --no-cache git
 
-# Set workdir
+# Set working directory
 WORKDIR /app
 
-# Copy the source code
+# Copy source code
 COPY . .
 
-# Enable Go modules (default in 1.25)
+# Enable Go modules
 ENV GO111MODULE=on
 
-# Fetch all dependencies
+# Download dependencies
 RUN go mod tidy
 
 # Build the server
